@@ -1,278 +1,299 @@
-#include<reg51.h>
-#include<string.h>
+#include <reg51.h>
 
-//Micro Define
-#define lcdport P2
+// connected pins
+// keypad rows
+sbit keyrow1 = P2 ^ 0;
+sbit keyrow2 = P2 ^ 1;
+sbit keyrow3 = P2 ^ 2;
+sbit keyrow4 = P2 ^ 3;
+//keypad column
+sbit keycolumn1 = P3 ^ 0;
+sbit keycolumn2 = P3 ^ 1;
+sbit keycolumn3 = P3 ^ 2;
 
-//Pin configuaration for lcd-screen
-sbit rs=P3^4;
-sbit rw=P3^5;
-sbit en=P3^6;
+// motor pins
+sbit motorpin1 = P3 ^ 3;
+sbit motorpin2 = P3 ^ 4;
 
-//Pin configuaration for servo-motor
-sbit m1=P3^0;
-sbit m2=P3^1;
+// led pins
+sbit rs = P3 ^ 5;
+sbit rw = P3 ^ 6;
+sbit en = P3 ^ 7;
+// switch pins
+sbit sen1=P0^0;
+sbit sen2=P0^1;
 
-//Pin configuaration for Keypad: row
-sbit r1=P1^0;
-sbit r2=P1^1;
-sbit r3=P1^2;
-sbit r4=P1^3;
+//functions
+void lcdcmd(unsigned char);
+void lcddat(unsigned char);
+void lcddisplay(unsigned char *q);
+void lcdconv(unsigned char);
+char keypad();
+void check();
+void delay(unsigned int);
+unsigned char pin[] = {"12345"};
+unsigned char Epin[5];
+unsigned char z;
+unsigned char y;
 
-//Pin configuaration for Keypad: col
-sbit c1=P1^4;
-sbit c2=P1^5;
-sbit c3=P1^6;
-
-//Pin configuaration for Buzzer
-sbit buzzer=P1^7;
-
-//Globar Array Declaration for Storig Password
-char uid[]="54321";
-char id[5];
-
-//Function declaration
-void lcdint(); // Function to initialize Lcd-Screen
-void lcddis(char *); //Function to Display a string
-void delay(int); //Delay Function
-void lcdcmd(char); // Function to command Lcd
-void lcddata(char); // Function to display a single character in screen
-char lcdkey(); // Lcd Keyboard function
-char scan_key(); //Function to take single key input
-void door_open(); //Function to open door
-void door_close(); //Function to close Door
-void sounder(); // Function to Buzz sounder
-
-void main(){
-	
-	int n;
-	char key;
-	
-	P2=0x00; // Using Port 2 as output port
-	P1=0xff; // Using Port 1  as input port
-	
-	lcdint(); //Intitializing LCD-Screen
-	lcddis("Door is Locked");
-	//lcdcmd(0xc0);
-	//lcddis("Enter Passcode:");
-	delay(50);
-	lcdcmd(0x01);  //Clearing Display Screen
-	lcdcmd(0x02);	//4bit mode for LCd-Screen
-	lcddis("Enter Password:");
-	lcdcmd(0xc0);	// Cursor beggining of second line
-	n=0;
-	while(n<5){
-		key=scan_key();
-		id[n]=key;
-		//lcddata(key);
-		delay(10);
-		n++;
-	}
-	lcdcmd(0x01); //ClearingLCD-Screen
-	lcdcmd(0x02);	// 4bit mode for LCD-Screen
-	
-	if(strcmp(uid,id)==0){
-		lcddis("Password Matched");
-		delay(200);
-		door_open(); //openining door
-		delay(600);
-		door_close(); //closing door
-		lcdcmd(0x01); //Clearing LCD-Screen
-		lcdcmd(0x02);	//4bit mode for LCD-Screen
-	}
-	else{
-		lcddis("Wrong Password");
-		sounder();	//Buzzing Sounde
-		delay(10);
-		lcdcmd(0x01); //Clearing LCD-Screen
-		lcdcmd(0x02);	//4bit mode for LCD-Screen
-		lcddis("Please Try Again");
-		delay(50);
-		lcdcmd(0x01); //Clearing LCD-Screen
-		lcdcmd(0x02);	//4bit mode for LCD-Screen
-	}
-}
-
-//Lcd-Screen Initialization Function
-void lcdint(){
-	lcdcmd(0x38);	//  lcd initialize matrix 8bit
-	delay(2);
-	lcdcmd(0x01);	// Clearing Lcd-Screen
-	delay(2);
-	lcdcmd(0x80);	// lcd screen row-0 col-0
-	delay(2);
-	lcdcmd(0x0e);	//Display cursor blinking
-	delay(2);
-}
-//Delay Function
-void delay(int x)
+// main function
+void main()
 {
-	int i,j;
-	for(i=0;i<x;i++)
-	for(j=0;j<1275;j++);
-}
-//Lcd-Command Function
-void lcdcmd(char A){
-	lcdport=A;	// character is conntected to Lcd port-1
-	rs=0;	//reg select pin initially for command registor	
-	rw=0;	//reg writ pin initially write operation
-	en=1; // enable pin is initially high
-	delay(1);
-	en=0;	//after delay enable pin low
-}
-//Lcd-Display String Function
-void lcddis(char *p){
-	while(*p!='\0'){
-		lcddata(*p);
-		delay(5);
-		p++;
-	}
+    lcdcmd(0x0F); //decimal value: 15
+    lcdcmd(0x38); //decimal value: 56
+    lcdcmd(0x01); //decimal value: 1
+    lcdcmd(0x80);
+	  lcdcmd(0x87);
+	  lcdcmd(0xc0);
+	  lcdcmd(0xc6);
+    while (1)
+    {
+        unsigned int i = 0;
+        lcdcmd(0x80); //decimal value: 128
+        lcddis("ENTER PIN NUMBER");
+        delay(1000);
+        lcdcmd(0xc0); //decimal value: 192
+        while (pin[i] != '\0')
+        {
+            Epin[i] = keypad();
+            delay(1000);
+            i++;
+        }
+        check();
+    } while (1)
+		{
+			if (sen1==0)
+			{
+				lcdcmd(0x80);
+        delay(10);
+        lcddisplay("ENTRY:",6);
+        lcdcmd(0x87);
+        delay(10);
+        z=z+1;
+        lcdconv(z);
+       }
+		 
+       if(sen2==0) 
+        {
+          lcdcmd(0xc0);
+          lcddisplay("EXIT:",5);
+          lcdcmd(0xc6);
+          delay();
+          y=y+1;
+          lcdconv(y);
+          delay();
+        }
+				
+     }
+			}
+		
+
+
+//delay function
+void delay(unsigned int j)
+{
+    int a, b;
+    for (a = 0; a < j; a++)
+    {
+        for (b = 0; b < 10; b++)
+            ;
+    }
 }
 
-//Lcd-Data Function to Send Char to Lcd Data port
-void lcddata(char value)
+// lcd commands functions
+void lcdcmd(unsigned char A)
 {
-	lcdport=value; //Data pins are coonected to Lcd-PORT-2
-	rs=1;	// reg select pin initially to select Data resistor
-	rw=0;	//  reg write pin initially write operation
-	en=1;	// enable pin is initially high
-	delay(1);
-	en=0;	//after delay enable is lowr delay enable pin low
+    P1 = A;
+    rs = 0;
+    rw = 0;
+    en = 1;
+    delay(1000);
+    en = 0;
 }
 
-// Buzzer Function
-void sounder(){
-	int i;
-	for(i=0;i<5;i++){
-		buzzer=0 ;//buzzer on
-		delay(50);
-		buzzer=1; //buzzer of
-	}
-}
-//Function to Open Door
-void door_open(){
-	lcdcmd(0x01); //Clearing LCD-Screen
-	lcdcmd(0x02); //4bit mode for LCD-Screen
-	lcddis("Opening Door...");
-	m1=1; //Motor on
-	m2=0; //motor off
-}
-//Function to Close Door
-void door_close(){
-	lcdcmd(0x01); 
-	lcdcmd(0x02);
-	lcddis("Closing Door...");
-	m1=0;
-	m2=0;
-	delay(200);
-	//m1=1;
-	//m2=0;
-	m1=0;
-	m2=1;
-	delay(200);//testind delay 2:14
-	m1=0;
-	m2=0;
-}
-//Dunction to scan single Key and return it to main Function
-char scan_key()
+//lcd data function
+
+void lcddat(unsigned char i)
 {
-	char b='a';
-	while(b=='a'){
-		b=lcdkey();
-	}
-	return b;
+    P1 = i;
+    rs = 1;
+    rw = 0;
+    en = 1;
+    delay(1000);
+    en = 0;
 }
-//Function to take input from Lcd Keyboard 4*3
-char lcdkey(){
-	c1=c2=c3=1; // all columns are initially low
-	r1=r2=r3=r4=0; // all rows are initially low (active-high)
-	
-	//when first row is active and others are incactive
-	r1=0;
-	r2=r3=r4=1;
-	//if row=0 column=0 then 1 is returned or if we enter 1 in keypad 2
-	if(c1==0){
-		lcddata('*');
-		delay(2);
-		return '1';
-	}
-	//if row=0 column=1 then 2 is returned or if we enter  in keypad 2
-	if(c2==0){
-		lcddata('*');
-		delay(2);
-		return '2';
-	}
-	//if row=0 column=2 then 3 is returned or if we enter  in keypad 3
-	if(c3==0){
-		lcddata('*');
-		delay(2);
-		return '3';
-	}
-	
-	//when second row is active and others are incactive
-	r2=0;
-	r1=r3=r4=1;
-	//if row=1 column=0 then 4 is returned or if we enter  in keypad 4
-	if(c1==0){
-		lcddata('*');
-		delay(2);
-		return '4';
-	}
-	//if row=1 column=1 then 5 is returned or if we enter  in keypad 5
-	if(c2==0){
-		lcddata('*');
-		delay(2);
-		return '5';
-	}
-	//if row=1 column=2 then 6 is returned or if we enter  in keypad 6
-	if(c3==0){
-		lcddata('*');
-		delay(2);
-		return '6';
-	}
-	
-	//when third row is active and others are incactive
-	r3=0;
-	r1=r2=r4=1;
-	//if row=2 column=0 then 7 is returned or if we enter  in keypad 7
-	if(c1==0){
-		lcddata('*');
-		delay(2);
-		return '7';
-	}
-	//if row=2 column=1 then 8 is returned or if we enter  in keypad 8
-	if(c2==0){
-		lcddata('*');
-		delay(2);
-		return '8';
-	}
-	//if row=2 column=2 then 9 is returned or if we enter  in keypad 9
-	if(c3==0){
-		lcddata('*');
-		delay(2);
-		return '9';
-	}
-	
-	//when fourth row is active and others are incactive
-	r4=0;
-	r1=r2=r3=1;
-	//if row=3 column=0 then * is returned or if we enter  in keypad *
-	if(c1==0){
-		lcddata('*');
-		delay(2);
-		return '*';
-	}
-	//if row=3 column=1 then 0 is returned or if we enter  in keypad 0
-	if(c2==0){
-		lcddata('*');
-		delay(2);
-		return '0';
-	}
-	//if row=3 column=2 then # is returned or if we enter  in keypad #
-	if(c3==0){
-		lcddata('*');
-		delay(2);
-		return '#';
-	}
-	return 'a';
+
+//lcd display charecters function
+
+void lcddisplay(unsigned char *q)
+{
+    int k;
+    for (k = 0; q[k] != '\0'; k++)
+    {
+        lcddat(q[k]);
+    }
+    delay(10000);
 }
+void lcdconv(unsigned char num)
+{
+   unsigned char p,n;
+   p=num/10;
+   n=num%10;
+   p=p+0x30;
+   n=n+0x30;
+   lcddat(p);
+   lcddat(n);
+}
+// assign keypad character value function
+
+char keypad()
+{
+    int x = 0;
+    while (x == 0)
+    {
+        // assign values for first row
+        keyrow1 = 0;
+        keyrow2 = 1;
+        keyrow3 = 1;
+        keyrow4 = 1;
+        if (keycolumn1 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '1';
+        }
+        if (keycolumn2 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '2';
+        }
+        if (keycolumn3 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '3';
+        }
+        // assign values for second row
+        keyrow1 = 1;
+        keyrow2 = 0;
+        keyrow3 = 1;
+        keyrow4 = 1;
+
+        if (keycolumn1 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '4';
+        }
+        if (keycolumn2 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '5';
+        }
+        if (keycolumn3 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '6';
+        }
+
+        // assign values for third row
+        keyrow1 = 1;
+        keyrow2 = 1;
+        keyrow3 = 0;
+        keyrow4 = 1;
+        if (keycolumn1 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '7';
+        }
+        if (keycolumn2 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '8';
+        }
+        if (keycolumn3 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '9';
+        }
+
+        // assign values for forth row
+        keyrow1 = 1;
+        keyrow2 = 1;
+        keyrow3 = 1;
+        keyrow4 = 0;
+
+        if (keycolumn1 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '*';
+        }
+        if (keycolumn2 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '0';
+        }
+        if (keycolumn3 == 0)
+        {
+            lcddat('*');
+            delay(1000);
+            x = 1;
+            return '#';
+        }
+    }
+}
+
+// password check function and run the door motor
+
+void check()
+{
+    //  compare the input value with the assign password value
+    if (pin[0] == Epin[0] && pin[1] == Epin[1] && pin[2] == Epin[2] && pin[3] == Epin[3] && pin[4] == Epin[4])
+    {
+        delay(1000);
+        lcdcmd(0x01); //decimal value: 1
+        lcdcmd(0x81); //decimal value: 129
+        // show pin is correct
+        lcddisplay("PIN CORRECT");
+        delay(1000);
+        // door motor will run
+        motorpin1 = 1;
+        motorpin2 = 0;
+        lcdcmd(0xc1); //decimal value: 193
+        // show the door is unlocked
+        lcddisplay("DOOR OPENED");
+        delay(10000);
+        motorpin1 = 1;
+        motorpin2 = 0;
+        lcdcmd(0x01); //decimal value: 1
+    }
+    else
+    {
+        lcdcmd(0x01); //decimal value: 1
+        lcdcmd(0x80); //decimal value: 128
+        lcddisplay("WRONG PIN");
+        delay(1000);
+        lcdcmd(0x01); //decimal value: 1
+    }
+}
+
+// end
