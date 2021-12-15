@@ -17,7 +17,7 @@ It's a advanced parking management system. This project is divided into 4 differ
 
 - The main component in the circuit is 8051 controller. In this project 4×3 keypad is used to enter the password. The password which is entered is compared with the predefined     password. If the entered password is correct then the system opens the door by rotating door motor and displays the status of door on LCD. If the password is wrong then door     is remain closed and a sound alarm is triggered and displays “Password is wrong” on LCD.
 
-** Hardware Requirements:**
+**Hardware Requirements:**
 
 - 80C51 Microcontroller
 - Programming cable
@@ -31,16 +31,30 @@ It's a advanced parking management system. This project is divided into 4 differ
 - Power
 - Ground
 
-** Software requirements**
+**Software requirements**
+
 - Proteus (for circuit diagram and simulation)
 - Keil uVision5 IDE (for c code)
 
 
 ## **Parking System**
+
 This system is purely a part of automation sector. In this mechanism we can operate a parking system without any human surveillance. By using some essential componets we can automate our parking area.
 
 **Motivation**
 The main motivation is to reduce the traffic jam that occurs in the urban areas which are caused by vehicles searching for parking.
+
+**Hardware Requirements**
+
+- Microcontroller 8051 (AT89C51)
+- 7 seg Display 2 Digits 
+- Push Button
+- 
+**Software requirements**
+
+- Keil uvisoin C51
+- Proteus
+
 
 **Features**
 - To keep count of vehicles present in the area
@@ -56,26 +70,27 @@ The main motivation is to reduce the traffic jam that occurs in the urban areas 
 Ultrasonic sensors work by sending out a sound wave at a frequency above the range of human hearing. It uses a single transducer to send a pulse and to receive the echo. The transducer of the sensor acts as a microphone to receive and send the ultrasonic sound. The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse.
 
 **Features**
-### a) HARDWARE :-
 
-**1] SimulIDE:**
+**Hardware Requirements**
+
+1] SimulIDE:
 * SimulIDE provides AVR, Arduino and PIC microcontrollers that can be accessed just like other components. 
 * Features like gpsim and simavr allow you to use PIC and AVR microcontrollers, respectively.
 
-**2] AVR:**
+2] AVR:
 * An automatic voltage regulator (AVR) is an electronic device that maintains a constant voltage level to electrical equipment on the same load.
 * The AVR regulates voltage variations to deliver constant, reliable power supply.
 
-### b) SOFTWARE :-
+**Software requirements**
 
-**1] ATmega328:**
+1] ATmega328:
 * ATmega328 is commonly used in many projects and autonomous systems where a simple, low-powered, low-cost micro-controller is needed
 * Perhaps the most common implementation of this chip is on the popular Arduino development platform.
       
-**2] Sound:**
+2] Sound:
 * A sound sensor is defined as a module that detects sound waves through its intensity and converting it to electrical signals.
       
-**3] Display:**
+3] Display:
 * A display device is an output device for presentation of information in visual or tactile form.
 
 
