@@ -66,32 +66,25 @@ The main motivation is to reduce the traffic jam that occurs in the urban areas 
 - Reduced traffic.
 - Real-Time Data and Trend Insight.
 
-## **Ultrasonic Detection System**
-Ultrasonic sensors work by sending out a sound wave at a frequency above the range of human hearing. It uses a single transducer to send a pulse and to receive the echo. The transducer of the sensor acts as a microphone to receive and send the ultrasonic sound. The sensor determines the distance to a target by measuring time lapses between the sending and receiving of the ultrasonic pulse.
-
+# Ultrasonic-distance-calculator  
 **Features**
+*This avoids accidents and prevents the cars from getting damaged
+*AT89S52 interface with ultrasonic sensor HC-SR04 and 16X2 LCD to display distance
 
-**Hardware Requirements**
+### Project Requirements  
+1.  8051   
+2.  16X2 LCD  
+3.  HC-SR04 Ultrasonic Sensor  
+4.  10K POT  
+5.  Few Jumper wires  
+6.  Keil IDE  
+7.  Basic microcontroller understanding  
 
-1] SimulIDE:
-* SimulIDE provides AVR, Arduino and PIC microcontrollers that can be accessed just like other components. 
-* Features like gpsim and simavr allow you to use PIC and AVR microcontrollers, respectively.
-
-2] AVR:
-* An automatic voltage regulator (AVR) is an electronic device that maintains a constant voltage level to electrical equipment on the same load.
-* The AVR regulates voltage variations to deliver constant, reliable power supply.
-
-**Software requirements**
-
-1] ATmega328:
-* ATmega328 is commonly used in many projects and autonomous systems where a simple, low-powered, low-cost micro-controller is needed
-* Perhaps the most common implementation of this chip is on the popular Arduino development platform.
-      
-2] Sound:
-* A sound sensor is defined as a module that detects sound waves through its intensity and converting it to electrical signals.
-      
-3] Display:
-* A display device is an output device for presentation of information in visual or tactile form.
+### How to setup   
+1.  Open keil and setup to 8051 or AT89S52 microcontroller  
+2.  Compile the file  
+3.  Burn file to microcontroller  
+4.  Generate a Hex code for proteus for simulation  
 
 
 ## **Billing System**
