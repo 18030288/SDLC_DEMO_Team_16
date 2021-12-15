@@ -1,0 +1,337 @@
+C51 COMPILER V9.60.0.0   DOORLOOC                                                          12/16/2021 01:11:19 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE DOORLOOC
+OBJECT MODULE PLACED IN .\Objects\doorlooc.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE doorlooc.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\
+                    -doorlooc.lst) TABS(2) OBJECT(.\Objects\doorlooc.obj)
+
+line level    source
+
+   1          // password based door lock system in 8051 microprocessor
+   2          
+   3          #include <reg51.h>
+   4          
+   5          // connected pins
+   6          // keypad rows
+   7          sbit keyrow1 = P2 ^ 0;
+   8          sbit keyrow2 = P2 ^ 1;
+   9          sbit keyrow3 = P2 ^ 2;
+  10          sbit keyrow4 = P2 ^ 3;
+  11          //keypad column
+  12          sbit keycolumn1 = P3 ^ 0;
+  13          sbit keycolumn2 = P3 ^ 1;
+  14          sbit keycolumn3 = P3 ^ 2;
+  15          
+  16          // motor pins
+  17          sbit motorpin1 = P3 ^ 3;
+  18          sbit motorpin2 = P3 ^ 4;
+  19          
+  20          // led pins
+  21          sbit rs = P3 ^ 5;
+  22          sbit rw = P3 ^ 6;
+  23          sbit en = P3 ^ 7;
+  24          // switch pins
+  25          sbit sen1=P0^0;
+  26          sbit sen2=P0^1;
+  27          
+  28          //functions
+  29          void lcdcmd(unsigned char);
+  30          void lcddat(unsigned char);
+  31          void lcddisplay(unsigned char *q);
+  32          void lcdconv(unsigned char);
+  33          char keypad();
+  34          void check();
+  35          void delay(unsigned int);
+  36          unsigned char pin[] = {"12345"};
+  37          unsigned char Epin[5];
+  38          unsigned char z;
+  39          unsigned char y;
+  40          
+  41          // main function
+  42          void main()
+  43          {
+  44   1          lcdcmd(0x0F); //decimal value: 15
+  45   1          lcdcmd(0x38); //decimal value: 56
+  46   1          lcdcmd(0x01); //decimal value: 1
+  47   1          lcdcmd(0x80);
+  48   1          lcdcmd(0x87);
+  49   1          lcdcmd(0xc0);
+  50   1          lcdcmd(0xc6);
+  51   1          while (1)
+  52   1          {
+  53   2              unsigned int i = 0;
+  54   2              lcdcmd(0x80); //decimal value: 128
+C51 COMPILER V9.60.0.0   DOORLOOC                                                          12/16/2021 01:11:19 PAGE 2   
+
+  55   2              lcddisplay("ENTER PIN NUMBER");
+  56   2              delay(1000);
+  57   2              lcdcmd(0xc0); //decimal value: 192
+  58   2              while (pin[i] != '\0')
+  59   2              {
+  60   3                  Epin[i] = keypad();
+  61   3                  delay(1000);
+  62   3                  i++;
+  63   3              }
+  64   2              check();
+  65   2          } while (1)
+  66   1          {
+  67   2            if (sen1==0)
+  68   2            {
+  69   3              lcdcmd(0x80);
+  70   3              delay(10);
+  71   3              lcddisplay("ENTRY:");
+  72   3              lcdcmd(0x87);
+  73   3              delay(10);
+  74   3              z=z+1;
+  75   3              lcdconv(z);
+  76   3             }
+  77   2           
+  78   2             if(sen2==0) 
+  79   2              {
+  80   3                lcdcmd(0xc0);
+  81   3                lcddisplay("EXIT:");
+  82   3                lcdcmd(0xc6);
+  83   3                delay();
+*** WARNING C209 IN LINE 83 OF doorlooc.c: '_delay': too few actual parameters
+  84   3                y=y+1;
+  85   3                lcdconv(y);
+  86   3                delay();
+*** WARNING C209 IN LINE 86 OF doorlooc.c: '_delay': too few actual parameters
+  87   3              }
+  88   2              
+  89   2           }
+  90   1            }
+  91              
+  92          
+  93          
+  94          //delay function
+  95          void delay(unsigned int j)
+  96          {
+  97   1          int a, b;
+  98   1          for (a = 0; a < j; a++)
+  99   1          {
+ 100   2              for (b = 0; b < 10; b++)
+ 101   2                  ;
+ 102   2          }
+ 103   1      }
+ 104          
+ 105          // lcd commands functions
+ 106          void lcdcmd(unsigned char A)
+ 107          {
+ 108   1          P1 = A;
+ 109   1          rs = 0;
+ 110   1          rw = 0;
+ 111   1          en = 1;
+ 112   1          delay(1000);
+ 113   1          en = 0;
+ 114   1      }
+C51 COMPILER V9.60.0.0   DOORLOOC                                                          12/16/2021 01:11:19 PAGE 3   
+
+ 115          
+ 116          //lcd data function
+ 117          
+ 118          void lcddat(unsigned char i)
+ 119          {
+ 120   1          P1 = i;
+ 121   1          rs = 1;
+ 122   1          rw = 0;
+ 123   1          en = 1;
+ 124   1          delay(1000);
+ 125   1          en = 0;
+ 126   1      }
+ 127          
+ 128          //lcd display charecters function
+ 129          
+ 130          void lcddisplay(unsigned char *q)
+ 131          {
+ 132   1          int k;
+ 133   1          for (k = 0; q[k] != '\0'; k++)
+ 134   1          {
+ 135   2              lcddat(q[k]);
+ 136   2          }
+ 137   1          delay(10000);
+ 138   1      }
+ 139          void lcdconv(unsigned char num)
+ 140          {
+ 141   1         unsigned char p,n;
+ 142   1         p=num/10;
+ 143   1         n=num%10;
+ 144   1         p=p+0x30;
+ 145   1         n=n+0x30;
+ 146   1         lcddat(p);
+ 147   1         lcddat(n);
+ 148   1      }
+ 149          // assign keypad character value function
+ 150          
+ 151          char keypad()
+ 152          {
+ 153   1          int x = 0;
+ 154   1          while (x == 0)
+ 155   1          {
+ 156   2              // assign values for first row
+ 157   2              keyrow1 = 0;
+ 158   2              keyrow2 = 1;
+ 159   2              keyrow3 = 1;
+ 160   2              keyrow4 = 1;
+ 161   2              if (keycolumn1 == 0)
+ 162   2              {
+ 163   3                  lcddat('*');
+ 164   3                  delay(1000);
+ 165   3                  x = 1;
+ 166   3                  return '1';
+ 167   3              }
+ 168   2              if (keycolumn2 == 0)
+ 169   2              {
+ 170   3                  lcddat('*');
+ 171   3                  delay(1000);
+ 172   3                  x = 1;
+ 173   3                  return '2';
+ 174   3              }
+ 175   2              if (keycolumn3 == 0)
+ 176   2              {
+C51 COMPILER V9.60.0.0   DOORLOOC                                                          12/16/2021 01:11:19 PAGE 4   
+
+ 177   3                  lcddat('*');
+ 178   3                  delay(1000);
+ 179   3                  x = 1;
+ 180   3                  return '3';
+ 181   3              }
+ 182   2              // assign values for second row
+ 183   2              keyrow1 = 1;
+ 184   2              keyrow2 = 0;
+ 185   2              keyrow3 = 1;
+ 186   2              keyrow4 = 1;
+ 187   2      
+ 188   2              if (keycolumn1 == 0)
+ 189   2              {
+ 190   3                  lcddat('*');
+ 191   3                  delay(1000);
+ 192   3                  x = 1;
+ 193   3                  return '4';
+ 194   3              }
+ 195   2              if (keycolumn2 == 0)
+ 196   2              {
+ 197   3                  lcddat('*');
+ 198   3                  delay(1000);
+ 199   3                  x = 1;
+ 200   3                  return '5';
+ 201   3              }
+ 202   2              if (keycolumn3 == 0)
+ 203   2              {
+ 204   3                  lcddat('*');
+ 205   3                  delay(1000);
+ 206   3                  x = 1;
+ 207   3                  return '6';
+ 208   3              }
+ 209   2      
+ 210   2              // assign values for third row
+ 211   2              keyrow1 = 1;
+ 212   2              keyrow2 = 1;
+ 213   2              keyrow3 = 0;
+ 214   2              keyrow4 = 1;
+ 215   2              if (keycolumn1 == 0)
+ 216   2              {
+ 217   3                  lcddat('*');
+ 218   3                  delay(1000);
+ 219   3                  x = 1;
+ 220   3                  return '7';
+ 221   3              }
+ 222   2              if (keycolumn2 == 0)
+ 223   2              {
+ 224   3                  lcddat('*');
+ 225   3                  delay(1000);
+ 226   3                  x = 1;
+ 227   3                  return '8';
+ 228   3              }
+ 229   2              if (keycolumn3 == 0)
+ 230   2              {
+ 231   3                  lcddat('*');
+ 232   3                  delay(1000);
+ 233   3                  x = 1;
+ 234   3                  return '9';
+ 235   3              }
+ 236   2      
+ 237   2              // assign values for forth row
+ 238   2              keyrow1 = 1;
+C51 COMPILER V9.60.0.0   DOORLOOC                                                          12/16/2021 01:11:19 PAGE 5   
+
+ 239   2              keyrow2 = 1;
+ 240   2              keyrow3 = 1;
+ 241   2              keyrow4 = 0;
+ 242   2      
+ 243   2              if (keycolumn1 == 0)
+ 244   2              {
+ 245   3                  lcddat('*');
+ 246   3                  delay(1000);
+ 247   3                  x = 1;
+ 248   3                  return '*';
+ 249   3              }
+ 250   2              if (keycolumn2 == 0)
+ 251   2              {
+ 252   3                  lcddat('*');
+ 253   3                  delay(1000);
+ 254   3                  x = 1;
+ 255   3                  return '0';
+ 256   3              }
+ 257   2              if (keycolumn3 == 0)
+ 258   2              {
+ 259   3                  lcddat('*');
+ 260   3                  delay(1000);
+ 261   3                  x = 1;
+ 262   3                  return '#';
+ 263   3              }
+ 264   2          }
+ 265   1      }
+ 266          
+ 267          // password check function and run the door motor
+ 268          
+ 269          void check()
+ 270          {
+ 271   1          //  compare the input value with the assign password value
+ 272   1          if (pin[0] == Epin[0] && pin[1] == Epin[1] && pin[2] == Epin[2] && pin[3] == Epin[3] && pin[4] == Epin
+             -[4])
+ 273   1          {
+ 274   2              delay(1000);
+ 275   2              lcdcmd(0x01); //decimal value: 1
+ 276   2              lcdcmd(0x81); //decimal value: 129
+ 277   2              // show pin is correct
+ 278   2              lcddisplay("PIN CORRECT");
+ 279   2              delay(1000);
+ 280   2              // door motor will run
+ 281   2              motorpin1 = 1;
+ 282   2              motorpin2 = 0;
+ 283   2              lcdcmd(0xc1); //decimal value: 193
+ 284   2              // show the door is unlocked
+ 285   2              lcddisplay("DOOR OPENED");
+ 286   2              delay(10000);
+ 287   2              motorpin1 = 1;
+ 288   2              motorpin2 = 0;
+ 289   2              lcdcmd(0x01); //decimal value: 1
+ 290   2          }
+ 291   1          else
+ 292   1          {
+ 293   2              lcdcmd(0x01); //decimal value: 1
+ 294   2              lcdcmd(0x80); //decimal value: 128
+ 295   2              lcddisplay("WRONG PIN");
+ 296   2              delay(1000);
+ 297   2              lcdcmd(0x01); //decimal value: 1
+ 298   2          }
+ 299   1      }
+C51 COMPILER V9.60.0.0   DOORLOOC                                                          12/16/2021 01:11:19 PAGE 6   
+
+*** WARNING C291 IN LINE 265 OF doorlooc.c: not every exit path returns a value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    516    ----
+   CONSTANT SIZE    =     64    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     13       7
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)
