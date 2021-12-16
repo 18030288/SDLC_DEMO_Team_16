@@ -16,11 +16,13 @@
 | -------- |   --------------            |  -------------- | ---------------            |  ------------- | -------------|
 | HL01     |   Vehicle's Entry/ Gate open|  Sensor High    | Entry recorded             |  Pass          | Requirement |
 | HL02     |   Entry Gate Closees        |  Sensor Low     | Counter Increases the count|  Pass          | Requirement |
+| HL03     | Detects Vehicle's Motion    | Button ON       | Light ON                   |  Pass          | Requirement |
+| HL04     | Vehicle Motion Not Detected | Button OFF      | Lights OFF                 | Pass           | Requirement |
 ## Low level test plan
  | Test ID |	Description	                          | Exp OUT	                  | Actual Out	| Type Of Test      |
 |---------|---------------------------------------|---------------------------|-------------|-------------------|
 | LL01	  | Checking the number of vehicles present	| Displaying updated stocks	| Matched	    | Requirement based |
-
+| LL02   | Checking the motion of vehicles         |  Lights ON                | Matched     | Required Based    |
 
 - Automated park lighting system
 
