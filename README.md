@@ -11,8 +11,8 @@
 | 40020686 | vasanthakumar | Worked on Automatic parking light Systems Codeing Part|
 | 40020685 | Janani R| Worked on Automated parking light system simulation and UML Diagrams|
 | 40020680 | Muskan Jaiswal | Worked on Billing system coding and design part |
+| 40020682 | Priyanka Sonawane| Worked on Distance Calculator, Design, Requirement |
 | 40020684 | Bhargavi M |worked on Automatic parking light system requirement folder |
 | 40020681 | Ashwini Kamble | Worked on Distance Calculator and design part |
-| 40020682 | Priyanka Sonawane| Worked on Distance Calculator, Design, Requirement |
 |  |
 |  | 
