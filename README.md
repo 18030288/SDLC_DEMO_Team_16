@@ -13,6 +13,6 @@
 | 40020680 | Muskan Jaiswal | Worked on Billing system coding and design part |
 | 40020684 | Bhargavi M |worked on Automatic parking light system requirement folder |
 | 40020681 | Ashwini Kamble | Worked on Distance Calculator and design part |
-|  | 
+| 40020682 | Priyanka Sonawane| Worked on Distance Calculator, Design, Requirement |
 |  |
 |  | 
