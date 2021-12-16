@@ -3,7 +3,7 @@
 It's a advanced parking management system. This project is divided into 4 different parts.
 - Security Door Lock System
 - Parking System
-- Ultrasonic Detection System
+- Distance Calculator System
 - Billing System
 
 ## **Security Door Lock System**
@@ -66,7 +66,7 @@ The main motivation is to reduce the traffic jam that occurs in the urban areas 
 - Reduced traffic.
 - Real-Time Data and Trend Insight.
 
-# Ultrasonic-distance-calculator  
+# Distance Calculator System
 The ultrasonic sensor emits a high-frequency sound pulse and calculates the distance depending upon the time taken by the echo signal to travel back after reflecting from the desired target. This system maintains the distance between two cars in parking area. 
 
 **Features**
@@ -80,7 +80,6 @@ The ultrasonic sensor emits a high-frequency sound pulse and calculates the dist
 4.  10K POT  
 5.  Few Jumper wires  
 6.  Keil IDE  
-7.  Basic microcontroller understanding  
 
 ### How to setup   
 1.  Open keil and setup to 8051     
@@ -126,16 +125,22 @@ Each customer in the system has an account balance, which affects any invoices r
 
  ## d) Strength:
  1. We can secure our entire system by using Security door lock system.
+ 
  2.The main motivation is to reduce the traffic jam that occurs in the urban areas which are caused by vehicles searching for parking.
+ 
  3.The distance to an obstacle can be measured with the low cost ultrasonic sensor.
+ 
  4.Aim of using billing system is to maintain the information and payment history of the customer while paying for parking bill.It capable of billing more quickly, accurately and update customer record and enables customer to view bill information.
 
 
 
  ## b) Weakness:
 1.This system depends on interconnected system and works on only limited edition.
+
 2.Although we fully believe in the capability of our sensors, we understand that ultrasonics are not suited for every application. 
+
 3.Focuses of low thickness, similar to froth and fabric, have a tendency to assimilate sound vitality; these materials may be hard to sense at long range
+
 4.This needs the maintainance.
 
 
@@ -145,7 +150,7 @@ Each customer in the system has an account balance, which affects any invoices r
 3.This project can be used to reduce the business cost.
 
  ## d) Threats :
-1.Ifany complication occurs in any one module then it will affect the entire system.
+1.If any complication occurs in any one module then it will affect the entire system.
 2.Sensors must view a surface (particularly a hard, level surface) unequivocally (oppositely) to get adequate sound reverberation.
 3. Additionally, solid detecting requires a base target surface range, which is indicated for every sensor sort.
 4.If connection is wrong there might be chances of short-circuit.
@@ -164,10 +169,10 @@ It measures accurate distance using a non-contact technology - A technology that
 In 1959, Satomura created an ultrasonic flowmeter that used doppler technology.
 
 -# Why:
-I am Developing this project for easily measure the distance between objects 
+I am developing this project for ease life of people i.e it optimizes parking space and make processes efficient. This is cost effective solution system because system works automatically. It provides safety as well as security.
 
 - # How:
-By using Atmega328 an display  an ultrasonic sensor mainly used to determine the distance of the target object. 
+By using 8051, an ultrasonic sensor mainly used to determine the distance of the target object. 
 
 
 # Detail requirements :-
