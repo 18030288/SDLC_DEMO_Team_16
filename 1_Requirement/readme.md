@@ -3,6 +3,7 @@
 It's a advanced parking management system. This project is divided into 4 different parts.
 - Security Door Lock System
 - Parking System
+- Automatic parking light system
 - Distance Calculator System
 - Billing System
 
@@ -67,6 +68,72 @@ The main motivation is to reduce the traffic jam that occurs in the urban areas 
 - Optimized parking.
 - Reduced traffic.
 - Real-Time Data and Trend Insight.
+
+
+- ## **Automatic parking light system**
+
+**Motivation**
+This Automatic parking light systeam is very useful in parking places to avoid current wastage by turn on the light when the vehicles are arrived at the destination.
+Generally, in many areas, parking light control is done manually. That means, some person turns on the light at evening time and turns them off in the morning time. However,
+there are few drawbacks to this manual method of controlling the light.  Also if the street lights are not turned off in the morning then it causes electricity wastage. Also if we implement a time-based light controlling system, then it will cause a problem since the  evening start time is different in winter and summer. This project of automatic street light control can be used to overcome all these drawbacks. The lights are turned on at night time because the light intensity is low at night. And the street lights are turned on in the daytime since the light intensity is sufficient in the daytime.
+
+
+ **Hardware Requirements:**
+
+- 80C51 Microcontroller(AT89C51)
+- push button
+- relay
+- lamp
+- BC47  
+                                  
+**Software requirements**
+
+- Keil uvisoin C51
+- Proteus
+
+**How to setup**  
+1.  Open keil and setup to 8051 or AT89S52 microcontroller  
+2.  Compile the file  
+3.  Burn file to microcontroller  
+4.  Generate a Hex code for proteus for simulation  
+
+**Features of LDR are as follows:**
+
+ -  High reliability.
+-  Light weight.
+-  Wide spectral response.
+-  Wide ambient temperature range.
+
+ **State of art/Research**
+
+ ![](https://www.projectsof8051.com/project-photos/5126-iot-vehicle-fuel-theft-detection-system-using-arduino-21.jpg)
+ 
+  
+**Strength**
+
+ - Increase road safety
+
+ - Improves traffic flow
+ 
+ - This project has the main application in parking system control.
+
+**Weakness**
+
+ - The automatic parking system requires a higher initial investment in comparison to conventional parking.
+
+ - Risk of theft of the automatic parking system is relatively higher since they are non-wired & are much expensive.
+
+ - Rechargeable batteries of the automatic parking system are required to be replaced a few times.
+
+ **Opportunities**
+
+ - Business strategy: You will better understand how a smart parkig system solution enables you to successfully meet your business outcomes
+
+ - Technology decisions: You will learn how a smart street lighting solution works to deliver IT and business value
+
+**Threats**
+
+- The absence of those parking system and even others that are not functioning properly pose danger to pedestrians, drivers and cars parking
 
 # Distance Calculator System
 The ultrasonic sensor emits a high-frequency sound pulse and calculates the distance depending upon the time taken by the echo signal to travel back after reflecting from the desired target. This system maintains the distance between two cars in parking area. 
