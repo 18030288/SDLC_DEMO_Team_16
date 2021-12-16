@@ -1,14 +1,20 @@
 ## TestPlan
 - Security Door Lock System 
+## HIgh level req:
+| ID | Discription | Status |
+| ---- | ---- | ---- |
+| HLR_1 | Whenever the correct pass key is entered the Door should be Opened | Implemented |
+| HLR_2 | Parking slot should be displayed in real-time   | Implemented |
+| HLR_3 | Constant and appropriate power supply should me given to the system | Implemented |
 
-| ID | Description | Status |
-| --- | --- | --- |
-| 1 | Simulation on Proteus | Implemented |
-| 2 | 8051 Microcontroller  | Implemented |
-| 3 | LCD | Implemented |
-| 4 | Keypad | Implemented |
-| 5 | Inputs  | Implemented |
-| 6 |Output | Implemented |
+
+## Low level req:
+| ID | Discription | Status |
+| ---- | ---- | ---- |
+| LLR_1 | If entered pass key is wrong then re-enter the correct pass key  | Implemented |
+| LLR_2 | Debouncing of key should be elimenated | Implemented |
+| LLR_3 | Data should be displayed on Lcd Screen   | Implemented |
+
 
 ## Test Plan
 ## High Level Test Plan
