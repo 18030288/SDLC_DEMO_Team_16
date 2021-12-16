@@ -1,0 +1,143 @@
+3_Implementation/1_Security Door/doorlock/doorlooc.c:165:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:172:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:179:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:192:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:199:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:206:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:219:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:226:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:233:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:247:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:254:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/1_Security Door/doorlock/doorlooc.c:261:15: style: Variable 'x' is assigned a value that is never used. [unreadVariable]
+            x = 1;
+              ^
+3_Implementation/2_Parking System/Debug/counter.c:22:7: style: Variable 'com1' is reassigned a value before the old one has been used. [redundantAssignment]
+  com1=0;com2=1;
+      ^
+3_Implementation/2_Parking System/Debug/counter.c:19:7: note: com1 is assigned
+  com1=1;com2=0;
+      ^
+3_Implementation/2_Parking System/Debug/counter.c:22:7: note: com1 is overwritten
+  com1=0;com2=1;
+      ^
+3_Implementation/2_Parking System/Debug/counter.c:25:7: style: Variable 'com2' is reassigned a value before the old one has been used. [redundantAssignment]
+  com2=0;
+      ^
+3_Implementation/2_Parking System/Debug/counter.c:22:14: note: com2 is assigned
+  com1=0;com2=1;
+             ^
+3_Implementation/2_Parking System/Debug/counter.c:25:7: note: com2 is overwritten
+  com2=0;
+      ^
+3_Implementation/2_Parking System/Debug/counter.c:7:15: style: The scope of the variable 'v1' can be reduced. [variableScope]
+unsigned char v1,v3,v4;
+              ^
+3_Implementation/2_Parking System/Debug/counter.c:7:18: style: The scope of the variable 'v3' can be reduced. [variableScope]
+unsigned char v1,v3,v4;
+                 ^
+3_Implementation/2_Parking System/Debug/counter.c:7:21: style: The scope of the variable 'v4' can be reduced. [variableScope]
+unsigned char v1,v3,v4;
+                    ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:37:7: style: Variable 'LCDen' is reassigned a value before the old one has been used. [redundantAssignment]
+ LCDen=0;
+      ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:33:7: note: LCDen is assigned
+ LCDen=1;   //Strobe the enable pin
+      ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:37:7: note: LCDen is overwritten
+ LCDen=0;
+      ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:64:8: style: Variable 'LCDrs' is reassigned a value before the old one has been used. [redundantAssignment]
+ LCDrs = 1;
+       ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:60:8: note: LCDrs is assigned
+ LCDrs = 1;
+       ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:64:8: note: LCDrs is overwritten
+ LCDrs = 1;
+       ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:66:8: style: Variable 'LCDen' is reassigned a value before the old one has been used. [redundantAssignment]
+ LCDen = 0;
+       ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:62:8: note: LCDen is assigned
+ LCDen = 1;  //Strobe the enable pin
+       ^
+3_Implementation/3_Ultrasonic_Distance_Calculator/DistanceCalculator.C:66:8: note: LCDen is overwritten
+ LCDen = 0;
+       ^
+3_Implementation/4_Billing Unit/main.c:69:11: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
+          scanf("%s", customer[ind].name);
+          ^
+3_Implementation/4_Billing Unit/main.c:73:11: warning: scanf() without field width limits can crash with huge input data. [invalidscanf]
+          scanf("%s", customer[ind].city);
+          ^
+3_Implementation/4_Billing Unit/main.c:30:21: style: Local variable 'id' shadows outer variable [shadowVariable]
+                int id = createAccount(i);
+                    ^
+3_Implementation/4_Billing Unit/main.c:9:32: note: Shadowed declaration
+int cust_count = 0,act_no = 0, id = 10001;
+                               ^
+3_Implementation/4_Billing Unit/main.c:30:21: note: Shadow variable
+                int id = createAccount(i);
+                    ^
+3_Implementation/4_Billing Unit/main.c:80:19: style: Local variable 'i' shadows outer variable [shadowVariable]
+          for(int i = 0; i < cust_count; i++){
+                  ^
+3_Implementation/4_Billing Unit/main.c:10:5: note: Shadowed declaration
+int i = 0;
+    ^
+3_Implementation/4_Billing Unit/main.c:80:19: note: Shadow variable
+          for(int i = 0; i < cust_count; i++){
+                  ^
+3_Implementation/4_Billing Unit/main.c:96:19: style: Local variable 'i' shadows outer variable [shadowVariable]
+          for(int i = 0; i < cust_count; i++){
+                  ^
+3_Implementation/4_Billing Unit/main.c:10:5: note: Shadowed declaration
+int i = 0;
+    ^
+3_Implementation/4_Billing Unit/main.c:96:19: note: Shadow variable
+          for(int i = 0; i < cust_count; i++){
+                  ^
+3_Implementation/4_Billing Unit/main.c:114:19: style: Local variable 'i' shadows outer variable [shadowVariable]
+          for(int i =0; i < cust_count; i++){
+                  ^
+3_Implementation/4_Billing Unit/main.c:10:5: note: Shadowed declaration
+int i = 0;
+    ^
+3_Implementation/4_Billing Unit/main.c:114:19: note: Shadow variable
+          for(int i =0; i < cust_count; i++){
+                  ^
+3_Implementation/4_Billing Unit/main.c:123:20: style: Local variable 'i' shadows outer variable [shadowVariable]
+          for (int i = 0; i < cust_count ; i++ )
+                   ^
+3_Implementation/4_Billing Unit/main.c:10:5: note: Shadowed declaration
+int i = 0;
+    ^
+3_Implementation/4_Billing Unit/main.c:123:20: note: Shadow variable
+          for (int i = 0; i < cust_count ; i++ )
+                   ^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingInclude]
+
