@@ -49,7 +49,9 @@ The main motivation is to reduce the traffic jam that occurs in the urban areas 
 - Microcontroller 8051 (AT89C51)
 - 7 seg Display 2 Digits 
 - Push Button
-- 
+- Ground
+- Connecting Wires
+
 **Software requirements**
 
 - Keil uvisoin C51
